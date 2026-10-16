@@ -1,0 +1,10 @@
+{
+  "name": "MateriaLab · Materiales I",
+  "short_name": "MateriaLab",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f7f8",
+  "theme_color": "#0b2538",
+  "lang": "es",
+  "description": "Estudio interactivo de Materiales I basado en las clases del curso."
+}

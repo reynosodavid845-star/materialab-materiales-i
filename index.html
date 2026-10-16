@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b2538">
+  <meta name="description" content="Estudio interactivo de Materiales I basado en las clases del curso.">
+  <title>MateriaLab · Materiales I</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Saltar al contenido</a>
+  <div class="app-shell">
+    <aside class="side-nav" aria-label="Navegación principal">
+      <div class="brand"><span class="brand-mark">M</span><span><strong>MateriaLab</strong><small>Materiales I</small></span></div>
+      <nav id="desktopNav"></nav>
+      <div class="side-footer">
+        <button class="icon-btn theme-toggle" aria-label="Cambiar tema">☾</button>
+        <div><small>Progreso local</small><strong id="sideProgress">0%</strong></div>
+      </div>
+    </aside>
+
+    <main id="content" tabindex="-1">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="eyebrow">PANEL DE ESTUDIO</p>
+          <h1 id="pageTitle">Buenas noches</h1>
+        </div>
+        <button class="icon-btn theme-toggle mobile-theme" aria-label="Cambiar tema">☾</button>
+      </header>
+
+      <section id="inicio" class="view active" data-title="Tu panel" data-eyebrow="PANEL DE ESTUDIO">
+        <div class="hero-card">
+          <div>
+            <span class="pill pill-teal">SIGUIENTE PASO</span>
+            <h2 id="heroTitle">Domina la regla de la palanca</h2>
+            <p id="heroText">Practica un cálculo guiado y comprueba por qué cada brazo corresponde a la fase opuesta.</p>
+            <button class="primary" data-go="ejercicios">Continuar estudiando <span>→</span></button>
+          </div>
+          <div class="progress-ring" aria-label="Progreso total"><span id="progressValue">0%</span><small>completado</small></div>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric"><span class="metric-icon blue">✓</span><div><strong id="correctCount">0</strong><small>Respuestas correctas</small></div></article>
+          <article class="metric"><span class="metric-icon coral">↗</span><div><strong id="streakCount">1 día</strong><small>Racha de estudio</small></div></article>
+          <article class="metric"><span class="metric-icon gold">◎</span><div><strong id="masteredCount">0/6</strong><small>Módulos dominados</small></div></article>
+        </div>
+
+        <div class="section-heading"><div><p class="eyebrow">TU RUTA</p><h2>Avance por módulo</h2></div><button class="text-btn" data-go="ruta">Ver ruta completa</button></div>
+        <div id="moduleProgress" class="module-grid"></div>
+
+        <div class="split-grid">
+          <article class="card">
+            <div class="section-heading compact"><div><p class="eyebrow">PUNTO DÉBIL</p><h2>Refuerza hoy</h2></div></div>
+            <div id="weakArea" class="weak-area"></div>
+          </article>
+          <article class="card study-card">
+            <div><p class="eyebrow">SESIÓN RÁPIDA</p><h2>10 minutos bien usados</h2><p>Una tarjeta, una lectura de diagrama y un cálculo.</p></div>
+            <button class="secondary" data-go="preguntas">Empezar sesión</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="ruta" class="view" data-title="Ruta de aprendizaje" data-eyebrow="6 MÓDULOS · PROGRESO LOCAL">
+        <div class="intro"><h2>De los fundamentos a los tratamientos</h2><p>Avanza en orden o entra directamente al tema que necesitas reforzar. Marca cada módulo cuando puedas explicarlo sin mirar tus apuntes.</p></div>
+        <div id="routeList" class="route-list"></div>
+      </section>
+
+      <section id="conceptos" class="view" data-title="Explorar conceptos" data-eyebrow="GLOSARIO CON FUENTES">
+        <div class="toolbar"><label class="search"><span>⌕</span><input id="conceptSearch" type="search" placeholder="Busca ferrita, temple, eutéctico…"></label><select id="conceptFilter" aria-label="Filtrar por módulo"><option value="all">Todos los módulos</option></select></div>
+        <div id="conceptGrid" class="concept-grid"></div>
+      </section>
+
+      <section id="diagramas" class="view" data-title="Diagramas interactivos" data-eyebrow="LEER ANTES DE CALCULAR">
+        <div class="tabs" role="tablist"><button class="tab active" data-diagram="cuni">Cu–Ni</button><button class="tab" data-diagram="fec">Fe–C simplificado</button></div>
+        <div class="diagram-layout">
+          <article class="card diagram-card">
+            <div class="diagram-head"><div><h2 id="diagramTitle">Sistema Cu–Ni</h2><p id="diagramSubtitle">Isomorfo · solubilidad ilimitada</p></div><span class="pill">Lectura aproximada</span></div>
+            <div class="chart-wrap"><svg id="phaseChart" viewBox="0 0 720 430" role="img" aria-label="Diagrama de fases interactivo"></svg></div>
+            <p class="chart-note">Las curvas son esquemáticas para practicar el procedimiento; no sustituyen una lectura sobre el diagrama original.</p>
+          </article>
+          <aside class="card controls-card">
+            <h2>Selecciona un punto</h2>
+            <label>Composición global <output id="compositionOut">35% Ni</output><input id="composition" type="range" min="0" max="100" value="35"></label>
+            <label>Temperatura <output id="temperatureOut">1250 °C</output><input id="temperature" type="range" min="900" max="1500" value="1250"></label>
+            <div class="result-box"><small>REGIÓN ESTIMADA</small><strong id="phaseRegion">α + L</strong><p id="phaseExplain">Traza una línea horizontal para encontrar la composición de cada fase.</p></div>
+            <button id="estimateBtn" class="secondary full">Primero, quiero estimar</button>
+            <button id="revealBtn" class="primary full">Revelar lectura guiada</button>
+            <div id="diagramAnswer" class="hidden answer-box"></div>
+          </aside>
+        </div>
+
+        <article class="card builder-card">
+          <div><p class="eyebrow">CONSTRUCTOR Fe–C</p><h2>Fase no es lo mismo que microconstituyente</h2><p>Selecciona carbono y temperatura para observar una interpretación didáctica del enfriamiento lento.</p></div>
+          <div class="builder-controls"><label>% C<input id="carbonInput" type="number" min="0" max="6.67" step="0.01" value="0.4"></label><label>Temperatura °C<input id="feTempInput" type="number" min="20" max="1600" step="1" value="700"></label><button id="buildMicro" class="primary">Analizar</button></div>
+          <div id="microResult" class="micro-result"></div>
+        </article>
+      </section>
+
+      <section id="ejercicios" class="view" data-title="Regla de la palanca" data-eyebrow="CALCULADORA PASO A PASO">
+        <div class="lesson-banner"><div><span class="lesson-number">01</span></div><div><h2>El brazo opuesto es la clave</h2><p>La fracción de una fase usa la distancia desde la composición global hasta el extremo de la <em>otra</em> fase. Así, al acercarte a una fase, su fracción aumenta.</p></div></div>
+        <div class="calculator-layout">
+          <article class="card calculator">
+            <h2>Datos de la línea de enlace</h2>
+            <div class="input-grid"><label>C<sub>izquierda</sub><input id="cLeft" inputmode="decimal" type="number" step="any" value="32"><span>%</span></label><label>C<sub>0</sub><input id="cZero" inputmode="decimal" type="number" step="any" value="35"><span>%</span></label><label>C<sub>derecha</sub><input id="cRight" inputmode="decimal" type="number" step="any" value="43"><span>%</span></label></div>
+            <div class="lever-visual" aria-hidden="true"><span class="endpoint left">C<sub>izq</sub></span><span class="beam"><i id="leverPoint"></i></span><span class="endpoint right">C<sub>der</sub></span></div>
+            <button id="calculateLever" class="primary full">Calcular fracciones</button>
+            <div id="leverError" class="error hidden" role="alert"></div>
+          </article>
+          <article id="leverSolution" class="card solution empty"><div><span class="solution-icon">ƒ</span><h2>Tu procedimiento aparecerá aquí</h2><p>Ingresa las tres composiciones y calcula.</p></div></article>
+        </div>
+        <div class="source-callout"><strong>Ejemplo del curso</strong><p>Para 35% Ni a 1250 °C: C<sub>L</sub>=32% y C<sub>α</sub>=43%. La operación da 72.7% líquido y 27.3% α.</p><span>Fuente: Clase 10, pp. 30–32 · La diapositiva 32 imprime 23.3% α; se documenta como inconsistencia.</span></div>
+      </section>
+
+      <section id="comparar" class="view" data-title="Comparadores" data-eyebrow="MATERIALES Y PROCESOS">
+        <div class="tabs compare-tabs" role="tablist"><button class="tab active" data-table="carbon">Aceros al carbono</button><button class="tab" data-table="stainless">Inoxidables</button><button class="tab" data-table="cast">Fundiciones</button><button class="tab" data-table="heat">Tratamientos</button><button class="tab" data-table="surface">Superficiales</button></div>
+        <article class="card table-card"><div class="table-scroll"><table id="compareTable"></table></div><p id="tableSource" class="table-source"></p></article>
+      </section>
+
+      <section id="preguntas" class="view" data-title="Banco de preguntas" data-eyebrow="PRÁCTICA CON RETROALIMENTACIÓN">
+        <div class="quiz-layout">
+          <article class="card quiz-card"><div class="quiz-meta"><span id="questionType" class="pill">SELECCIÓN MÚLTIPLE</span><span id="questionCounter">1 / 8</span></div><div id="questionBody"></div><div id="questionOptions" class="options"></div><div id="feedback" class="feedback hidden"></div><div class="quiz-actions"><button id="nextQuestion" class="primary" disabled>Siguiente pregunta</button></div></article>
+          <aside class="card flash-card-area"><p class="eyebrow">TARJETA DE ESTUDIO</p><div id="flashCard" class="flash-card" tabindex="0" role="button" aria-label="Voltear tarjeta"></div><div class="rating-row"><button data-rate="hard">Difícil</button><button data-rate="learning">En proceso</button><button data-rate="mastered">Dominado</button></div><p class="tap-hint">Toca la tarjeta para voltearla</p></aside>
+        </div>
+      </section>
+
+      <section id="simulacro" class="view" data-title="Simulacro de examen" data-eyebrow="CONFIGURA TU PRÁCTICA">
+        <article id="examSetup" class="card exam-setup"><div class="exam-art">∑</div><h2>Practica sin ver las respuestas</h2><p>Mezcla teoría, lectura de diagramas y cálculos. Al finalizar recibirás un diagnóstico por tema.</p><fieldset><legend>Número de preguntas</legend><label><input type="radio" name="examLength" value="10" checked> 10</label><label><input type="radio" name="examLength" value="20"> 20</label><label><input type="radio" name="examLength" value="30"> 30</label></fieldset><label class="switch-row"><span><strong>Temporizador</strong><small>90 segundos por pregunta</small></span><input id="timerToggle" type="checkbox"></label><button id="startExam" class="primary full">Iniciar simulacro</button></article>
+        <article id="examActive" class="card quiz-card hidden"></article>
+        <article id="examResult" class="card hidden"></article>
+      </section>
+
+      <section id="tutor" class="view" data-title="Tutor con fuentes" data-eyebrow="RESPUESTAS BASADAS EN TUS PDF">
+        <div class="tutor-layout"><article class="card chat-card"><div id="chatMessages" class="messages"><div class="message bot"><span class="avatar">M</span><div><p>Pregúntame sobre fases, Fe–C, aceros, fundiciones o tratamientos. Responderé con el contenido indexado de tus clases.</p><small>Selecciona el nivel de explicación y escribe una pregunta.</small></div></div></div><form id="tutorForm" class="chat-form"><label class="sr-only" for="tutorInput">Tu pregunta</label><textarea id="tutorInput" rows="2" placeholder="Ej.: ¿Cuál es la diferencia entre recocido y normalizado?"></textarea><button class="primary" type="submit" aria-label="Enviar">↑</button></form></article><aside class="card tutor-settings"><h2>Cómo quieres aprender</h2><div class="segmented"><button class="active" data-level="rapid">Rápido</button><button data-level="steps">Paso a paso</button><button data-level="teacher">Como profesor</button></div><label class="switch-row"><span><strong>Modo práctica</strong><small>Primero recibirás una pregunta socrática.</small></span><input id="practiceMode" type="checkbox"></label><div class="source-policy"><strong>Política de fuentes</strong><p>El tutor usa únicamente el índice local de los PDF. Si una pregunta queda fuera, lo dirá expresamente.</p></div></aside></div>
+      </section>
+
+      <section id="formulas" class="view" data-title="Resumen y fórmulas" data-eyebrow="UNA PÁGINA · LISTA PARA IMPRIMIR">
+        <div class="formula-actions"><p>Repaso compacto con los valores que aparecen en las clases.</p><button class="secondary" onclick="window.print()">Imprimir resumen</button></div>
+        <article class="formula-sheet">
+          <header><div><span>MATERIALES I</span><h2>Hoja esencial de fórmulas y datos</h2></div><small>Basada en las clases 10, 11, 13 y 17</small></header>
+          <div class="formula-columns">
+            <section><h3>Regla de la palanca</h3><div class="equation">W<sub>izq</sub> = (C<sub>der</sub> − C<sub>0</sub>) / (C<sub>der</sub> − C<sub>izq</sub>)</div><div class="equation">W<sub>der</sub> = (C<sub>0</sub> − C<sub>izq</sub>) / (C<sub>der</sub> − C<sub>izq</sub>)</div><ol><li>Ubica C<sub>0</sub> y T.</li><li>Traza la línea de enlace.</li><li>Lee sus extremos.</li><li>Usa el brazo opuesto y comprueba ΣW=1.</li></ol><span class="source">Clase 10, pp. 29–32</span></section>
+            <section><h3>Invariantes Fe–C usados en clase</h3><dl class="data-list"><div><dt>Peritéctico</dt><dd>1492 °C · L(0.4%C)+δ(0.08%C)→γ(0.18%C)</dd></div><div><dt>Eutéctico</dt><dd>1130 °C · L(4.3%C)→γ(1.76%C)+Fe₃C</dd></div><div><dt>Eutectoide</dt><dd>723 °C · γ(0.89%C)→α(0.025%C)+Fe₃C</dd></div></dl><span class="source">Clase 11, p. 26</span></section>
+            <section><h3>Rangos de carbono</h3><dl class="data-list"><div><dt>Bajo</dt><dd>&lt;0.25% C</dd></div><div><dt>Medio</dt><dd>0.25–0.60% C</dd></div><div><dt>Alto</dt><dd>0.60–1.40% C</dd></div></dl><span class="source">Clase 13, p. 12</span><p class="mini-note">Ferrita: hasta 0.02%C a temperatura ambiente. Cementita: 6.67%C.</p></section>
+            <section><h3>Enfriamiento</h3><dl class="data-list"><div><dt>Agua</dt><dd>Rápido · temple fuerte · &lt;30 °C</dd></div><div><dt>Aceite</dt><dd>Más lento · temple suave y uniforme</dd></div><div><dt>Sales</dt><dd>Enfriamiento lento</dd></div></dl><span class="source">Clase 17, p. 15</span></section>
+            <section class="wide"><h3>Tratamiento → microestructura → propiedad</h3><div class="process-row"><span>Normalizado</span><b>→</b><span>perlita fina</span><b>→</b><span>estructura uniforme</span></div><div class="process-row"><span>Temple</span><b>→</b><span>martensita</span><b>→</b><span>alta dureza</span></div><div class="process-row"><span>Revenido</span><b>→</b><span>martensita revenida</span><b>→</b><span>menos fragilidad</span></div><div class="process-row"><span>Bonificado</span><b>→</b><span>temple + revenido</span><b>→</b><span>resistencia y tenacidad</span></div><span class="source">Clase 17, pp. 9–13</span></section>
+          </div>
+        </article>
+        <details class="inconsistencies"><summary>Supuestos e inconsistencias detectadas</summary><ul><li>Clase 10, p. 32: el ejemplo imprime 72.7% L y 23.3% α; la fórmula y el balance entregan 27.3% α.</li><li>Clase 11, pp. 20 y 28: la estabilidad de ledeburita aparece hasta 723 °C y hasta 1130 °C, respectivamente.</li><li>Clase 11, p. 9 y Clase 16, p. 9: los rangos superiores de “fundición” no coinciden (6.11% frente a 4.3%). Se muestran según la fuente y el contexto.</li><li>Los diagramas de esta aplicación son esquemáticos; sus lecturas son aproximadas.</li></ul></details>
+      </section>
+    </main>
+
+    <nav id="mobileNav" class="bottom-nav" aria-label="Navegación móvil"></nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="main.v4.js"></script>
+</body>
+</html>
